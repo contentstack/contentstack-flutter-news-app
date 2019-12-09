@@ -10,31 +10,29 @@ class NewsPage extends StatefulWidget {
 
 class _NewsPageState extends State<NewsPage> {
 
-  var entryList = [];
-  var imageUrl = 'https://pbs.twimg.com/profile_images/944044690185134080/dxAswGWd_400x400.jpg';
+  Map entryList = {};
 
-  // using contentstack-dart-sdk to fetch the news content
-  _getData() async {
-    var stack = Contentstack.stack(
-        apiKey: 'blt920bb7e90248f607',
-        accessToken: 'blt0c4300391e033d4a59eb2857',
-        environment: 'production');
-    Entry entry = stack.contentType('news').entries();
-    Map response = await entry.find({});
-    var resp = response['entries'];
+  //using contentstack-dart-sdk to fetch the news content
+   _getData() async {
+    var stack = Contentstack.stack( apiKey: 'blt920bb7e90248f607', accessToken: 'blt0c4300391e033d4a59eb2857', environment: 'production');
+    Entry entry = stack.contentType('news').entry();
+    Map response =  await entry.find({});
+    if (response!=null && response.isNotEmpty){
+      print(response.containsKey('entries'));
+      var resp = response['entries'];
+      setState(() {
+        entryList = resp;
+      });
+    }else{
+      print('Error');
+    }
 
-    setState(() {
-      print('received entries');
-      entryList = resp;
-    });
-
-    return response;
+    return entryList;
   }
 
   @override
   void initState() {
     super.initState();
-
     _getData();
   }
 
@@ -44,18 +42,7 @@ class _NewsPageState extends State<NewsPage> {
     return Scaffold(
       //backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        actions: <Widget>[
-          Container(
-            padding: EdgeInsets.all(8),
-
-//            child: RaisedButton(
-//              onPressed: _changeBrightness(),
-//            ),
-
-          )
-        ],
-        title: Text('News'),
-        centerTitle: true,
+        title: Text('News'), centerTitle: true,
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(8),
@@ -81,8 +68,8 @@ class _NewsPageState extends State<NewsPage> {
               ),
               leading: CircleAvatar(
                 radius: 25.0,
-                backgroundImage: NetworkImage(imageUrl),
-                backgroundColor: Colors.transparent,
+                backgroundImage: AssetImage('assets/logo.jpg'),
+                //backgroundColor: Colors.transparent,
               ),
               subtitle: Container(
                 padding: EdgeInsets.all(4),

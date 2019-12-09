@@ -79,7 +79,6 @@ class Stack {
 }
 
 class ContentType {
-
   // content type of the stack.
   String contentTypeName;
 
@@ -91,14 +90,11 @@ class ContentType {
     this.config = config;
   }
 
-  Entry entry(String uid) {
-    Entry entry = new Entry.uid(uid);
-    entry.setConfig(config, this.contentTypeName);
-    return entry;
-  }
-
-  Entry entries() {
-    Entry entry = new Entry();
+  Entry entry({String uid}) {
+    Entry entry = Entry();
+    if (uid != null && uid.isNotEmpty) {
+      entry._uid = uid;//new Entry.uid(uid);
+    }
     entry.setConfig(config, this.contentTypeName);
     return entry;
   }
@@ -129,12 +125,14 @@ class Entry {
   }
 
   fetch() async {
-
     if (this._uid == null || this._uid.isEmpty) {
       throw ArgumentError('Kindly provide entry_uid');
     }
     this._queryParameters['environment'] = config._environment;
-    Uri uri = Uri.https(config._endpoint().toString(), '/v3/content_types/$_contentTypeUid/entries/$_uid', this._queryParameters);
+    Uri uri = Uri.https(
+        config._endpoint().toString(),
+        '/v3/content_types/$_contentTypeUid/entries/$_uid',
+        this._queryParameters);
     return await HTTPConnection(config, uri).getData();
   }
 
@@ -144,10 +142,10 @@ class Entry {
     }
     this._queryParameters['environment'] = config._environment;
     this._queryParameters.addAll(queryPrams);
-    Uri uri = Uri.https(config._endpoint(), '/v3/content_types/$_contentTypeUid/entries', this._queryParameters);
+    Uri uri = Uri.https(config._endpoint(),
+        '/v3/content_types/$_contentTypeUid/entries', this._queryParameters);
     return await HTTPConnection(config, uri).getData();
   }
-
 }
 
 class Asset {
@@ -175,7 +173,8 @@ class Asset {
     if (_uid == null || _uid.isEmpty) {
       throw ArgumentError('Kindly provide asset_uid');
     }
-    Uri uri = Uri.https(this._config._endpoint(), '/v3/assets/$_uid', this._queryParameters);
+    Uri uri = Uri.https(
+        this._config._endpoint(), '/v3/assets/$_uid', this._queryParameters);
     return await HTTPConnection(_config, uri).getData();
   }
 
@@ -183,21 +182,19 @@ class Asset {
     if (query == null) {
       throw TypeError();
     }
-    Uri uri = Uri.https(this._config._endpoint(), '/v3/assets', this._queryParameters);
+    Uri uri = Uri.https(
+        this._config._endpoint(), '/v3/assets', this._queryParameters);
     return await HTTPConnection(_config, uri).getData();
   }
-
 }
 
 class HTTPConnection {
-
   // This class returns Server result.
   Uri _uri;
   Config _config;
   HTTPConnection(this._config, this._uri);
 
   getData() async {
-
     // getting server data
     Map headers = <String, String>{
       'api_key': this._config._apiKey,
@@ -218,5 +215,4 @@ class HTTPConnection {
       e.toString();
     }
   }
-
 }
