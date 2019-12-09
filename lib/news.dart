@@ -10,13 +10,13 @@ class NewsPage extends StatefulWidget {
 
 class _NewsPageState extends State<NewsPage> {
 
-  Map entryList = {};
+  var entryList = [];
 
   //using contentstack-dart-sdk to fetch the news content
    _getData() async {
     var stack = Contentstack.stack( apiKey: 'blt920bb7e90248f607', accessToken: 'blt0c4300391e033d4a59eb2857', environment: 'production');
     Entry entry = stack.contentType('news').entry();
-    Map response =  await entry.find({});
+    var response =  await entry.find({});
     if (response!=null && response.isNotEmpty){
       print(response.containsKey('entries'));
       var resp = response['entries'];
