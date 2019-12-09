@@ -13,11 +13,11 @@ This project is a starting point for a Flutter application.
 **About this project**: Create a flutter news app using Contentstack Dart SDK.
 
 ***Android Screenshots***
-<img src='<img src='https://github.com/contentstack/contentstack-flutter-news-app/blob/master/assets/android_news_list.png' width='250' height='510'/> .. <img src='<img src='https://github.com/contentstack/contentstack-flutter-news-app/blob/master/assets/android_news_details.png' width='250' height='510'/>
+<img src='https://github.com/contentstack/contentstack-flutter-news-app/blob/master/assets/android_news_list.png' width='250' height='510'/> .. <img src='https://github.com/contentstack/contentstack-flutter-news-app/blob/master/assets/android_news_details.png' width='250' height='510'/>
 
 ***iOS Screenshots***
 
-<img src='<img src='https://github.com/contentstack/contentstack-flutter-news-app/blob/master/assets/ios_news_list.png' width='250' height='510'/> .. <img src='<img src='https://github.com/contentstack/contentstack-flutter-news-app/blob/master/assets/ios_news_details.png' width='250' height='510'/>
+<img src='https://github.com/contentstack/contentstack-flutter-news-app/blob/master/assets/ios_news_list.png' width='250' height='510'/> .. <img src='https://github.com/contentstack/contentstack-flutter-news-app/blob/master/assets/ios_news_details.png' width='250' height='510'/>
 
 
 ## Tutorial
