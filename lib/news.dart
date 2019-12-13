@@ -10,82 +10,109 @@ class NewsPage extends StatefulWidget {
 
 class _NewsPageState extends State<NewsPage> {
 
-  var entryList = [];
+  var newsList = [];
+
+  bool isDataAvailable = false;
 
   //using contentstack-dart-sdk to fetch the news content
-   _getData() async {
-    var stack = Contentstack.stack( apiKey: 'blt920bb7e90248f607', accessToken: 'blt0c4300391e033d4a59eb2857', environment: 'production');
+   _getNews() async {
+
+    // initialise contentstack by providing credentials as shown below. 
+    var stack = Contentstack.stack( apiKey: 'blt920bb7e90248f607', 
+    accessToken: 'blt0c4300391e033d4a59eb2857', environment: 'production');
+
+    // get entry instance as shown below.
     Entry entry = stack.contentType('news').entry();
+    // find all the entries as shown below.
+    // In case you want to filter the entries, do provide key value pair in find method as parameter
     var response =  await entry.find({});
+    // checks if response is not null and not empty.
     if (response!=null && response.isNotEmpty){
       print(response.containsKey('entries'));
+      //parse entries from the response. as shown below.
       var resp = response['entries'];
+      isDataAvailable = true;
+      // update the response so UI can update accordingly.
       setState(() {
-        entryList = resp;
+        newsList = resp;
       });
-    }else{
-      print('Error');
     }
-
-    return entryList;
   }
 
   @override
   void initState() {
     super.initState();
-    _getData();
+    // get news response.
+    _getNews();
   }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        title: Text('News'), centerTitle: true,
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: entryList.length,
-        itemBuilder: (BuildContext context, int index) {
 
-          return Card(
-            elevation: 2,
-            child: ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DetailScreen(
-                            newsTitle: entryList[index]['title'],
-                            newsDetail: entryList[index]['body'],
-                          )),
-                );
-              },
-              title: Text(
-                entryList[index]['title'],
-                maxLines: 1,
-              ),
-              leading: CircleAvatar(
-                radius: 25.0,
-                backgroundImage: AssetImage('assets/logo.jpg'),
-                //backgroundColor: Colors.transparent,
-              ),
-              subtitle: Container(
-                padding: EdgeInsets.all(4),
-                child: Text(
-                  entryList[index]['body'],
-                  maxLines: 1,
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.grey[600],
+      appBar: AppBar(
+        title: Text('News', style: TextStyle(color: Colors.white, fontSize: 25, fontFamily: 'nunito' ),), centerTitle: true,
+      ),
+
+      body:  isDataAvailable ? Feeds(newsList: newsList) : Center(child: CircularProgressIndicator())
+    );
+  }
+}
+
+
+class Feeds extends StatelessWidget {
+
+  const Feeds({
+    Key key,
+    @required this.newsList,
+  }) : super(key: key);
+
+  final List newsList;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      padding: EdgeInsets.all(8),
+      itemCount: newsList.length,
+      itemBuilder: (BuildContext context, int index) {
+
+        return Card(
+          elevation: 4,
+          child: ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailScreen(
+                          newsTitle: newsList[index]['title'],
+                          newsDetail: newsList[index]['body'],
+                        )),
+              );
+            },
+            title: Text(
+              newsList[index]['title'], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              maxLines: 1,
+            ),
+            leading: CircleAvatar(
+              radius: 25.0,
+              backgroundImage: AssetImage('assets/red_logo.png'),
+              backgroundColor: Colors.transparent,
+            ),
+            subtitle: Container(
+              padding: EdgeInsets.all(4),
+              child: Text(
+                newsList[index]['body'], style: TextStyle(fontSize: 15),
+                maxLines: 2,
               ),
             ),
-          );
-        },
-      ),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.grey[600],
+            ),
+          ),
+        );
+      },
     );
   }
 }
