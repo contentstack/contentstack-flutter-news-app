@@ -6,7 +6,7 @@ void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primarySwatch: Colors.red,
-          brightness: Brightness.dark,
+          brightness: Brightness.light,
           accentColor: Colors.orange,
           fontFamily: 'nunito'),
       home: NewsPage(),
