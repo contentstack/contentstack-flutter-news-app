@@ -18,8 +18,8 @@ class _NewsPageState extends State<NewsPage> {
    _getNews() async {
 
     // initialise contentstack by providing credentials as shown below. 
-    var stack = Contentstack.stack( apiKey: '***REMOVED***', 
-    accessToken: '***REMOVED***', environment: 'production');
+    var stack = Contentstack.stack( apiKey: 'stack_api_key',
+    accessToken: 'stack_delivery_token', environment: 'stack_environment');
 
     // get entry instance as shown below.
     Entry entry = stack.contentType('news').entry();
