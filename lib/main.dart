@@ -1,4 +1,4 @@
-import 'package:contentstack_flutter_news_app/news.dart';
+import 'package:contentstack_flutter_news_app/news_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(
