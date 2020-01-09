@@ -25,7 +25,7 @@ This project is a starting point for a Flutter application.
 
 We have created an in-depth tutorial on how you can create a flutter news app Contentstack Flutter SDK. Refer to the steps given in the following tutorial to create a fully functional flutter news app.
 
-[Create an flutter news app using Contentstack Dart SDK](https://www.contentstack.com/docs/example-apps/build-a-flutter-news-app-using-contentstacks-dart-sdk)
+[Create an flutter news app using Contentstack Dart SDK](https://www.contentstack.com/docs/developers/sample-apps/build-a-flutter-news-app-using-contentstacks-dart-sdk)
 
 
 ## Documentation
