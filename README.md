@@ -1,4 +1,4 @@
-# contentstack_flutter_news_app
+# Contentstack Flutter news app
 
 A contentstack flutter news application.
 
