@@ -9,7 +9,7 @@ class Contentstack {
       return throw new ArgumentError('Kindly provide apiKey');
     } else if (accessToken == null || accessToken.isEmpty) {
       return throw new ArgumentError('Kindly provide accessToken');
-    } else if (accessToken == null || accessToken.isEmpty) {
+    } else if (environment == null || environment.isEmpty) {
       return throw new ArgumentError('Kindly provide environment');
     }
 
