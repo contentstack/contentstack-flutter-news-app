@@ -18,8 +18,8 @@ class _NewsPageState extends State<NewsPage> {
   }
 
   _getNews() async {
-    final stack = contentstack.Stack(
-        'blt7979d15c28261b93', 'cs17465ae5683299db9d259cb6', 'production');
+    final stack =
+        contentstack.Stack('api_key', 'delivery_token', 'environment');
     final query = stack.contentType('news').entry().query();
     await query.find().then((response) {
       isDataAvailable = true;
