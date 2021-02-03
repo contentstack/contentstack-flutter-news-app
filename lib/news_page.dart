@@ -23,6 +23,9 @@ class _NewsPageState extends State<NewsPage> {
     final query = stack.contentType('news').entry().query();
     await query.find().then((response) {
       isDataAvailable = true;
+      if (response is contentstack.Error) {
+        print(response);
+      }
       setState(() {
         newsList = response['entries'];
       });
