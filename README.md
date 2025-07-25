@@ -1,3 +1,5 @@
+> **Note:** This app is no longer maintained. It remains available for reference. If you have questions regarding this, please reach out to our [support team](mailto:support@contentstack.com) and we will do our best to help!
+
 # Contentstack Flutter news app
 
 A contentstack flutter news application.
